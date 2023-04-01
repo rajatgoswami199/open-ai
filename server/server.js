@@ -12,16 +12,10 @@ const openai = new OpenAIApi(configuration);
 
 const app = express()
 app.use(cors())
-app.use(express.json())
-// Add Access Control Allow Origin headers
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.use(express.json({
+  origin: 'https://openai-roan.vercel.app/'
+}))
+
 app.get('/', async (req, res) => {
   res.status(200).send({
     message: 'Hello from CodeX!'
@@ -52,4 +46,4 @@ app.post('/', async (req, res) => {
   }
 })
 
-app.listen(5001, () => console.log('AI server started on http://localhost:5001'))
+app.listen(5002, () => console.log('AI server started on http://localhost:5002'))
